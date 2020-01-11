@@ -4,6 +4,7 @@ from __future__ import print_function
 import binascii
 import pygatt
 
+DEVICE_ADDRESS = "C4:B2:F1:C9:17:4A"
 ADDRESS_TYPE = pygatt.BLEAddressType.random
 adapter = pygatt.GATTToolBackend()
 
@@ -29,11 +30,10 @@ def scan(print_result=False):
 def connect_to_device(address):
 	return adapter.connect(address, address_type=ADDRESS_TYPE)
 
-DEVICE_ADDRESS = "C4:B2:F1:C9:17:4A"
 
 def main():
 	start()
-	devices = scan(True)
+	scan(True)
 	print("Connecting to device ", DEVICE_ADDRESS)
 	device = connect_to_device(DEVICE_ADDRESS)
 	device.register_disconnect_callback(on_disconnection)
