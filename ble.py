@@ -8,7 +8,7 @@ def on_disconnection(handle):
 	print("Device disconnected")
 
 def on_data(handle, value):
-	print("Data received: ", value);
+	print("Data received: ", value)
 
 DEVICE_ADDRESS = "C4:B2:F1:C9:17:4A"
 ADDRESS_TYPE = pygatt.BLEAddressType.random
@@ -21,7 +21,7 @@ device = adapter.connect(DEVICE_ADDRESS, address_type=ADDRESS_TYPE)
 device.register_disconnect_callback(on_disconnection)
 print("Subscribing")
 device.subscribe("6e400003-b5a3-f393-e0a9-e50e24dcca9e", callback=on_data)
-print("Done");
+print("Done")
 device.char_write("6e400002-b5a3-f393-e0a9-e50e24dcca9e", bytearray([48, 49]), wait_for_response=True)
 
 def main():
