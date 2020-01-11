@@ -4,15 +4,8 @@ from __future__ import print_function
 import binascii
 import pygatt
 
-DEVICE_ADDRESS = "C4:B2:F1:C9:17:4A"
 ADDRESS_TYPE = pygatt.BLEAddressType.random
 adapter = pygatt.GATTToolBackend()
-
-def on_disconnection(handle):
-	print("Device disconnected")
-
-def on_data(handle, value):
-	print("Data received: ", value)
 
 def start():
 	adapter.start()
@@ -26,28 +19,24 @@ def scan(print_result=False):
 			print("Address", device['address'])
 	return devices
 
-
-def connect_to_device(address):
+def connect(address):
 	return adapter.connect(address, address_type=ADDRESS_TYPE)
 
+def discovery_chars(device, print_result=False):
+	characteristics = device.discover_characteristics()
+	if print_result == True:
+		for characteristic in characteristics:
+			print(characteristic) 
+	return characteristics
 
-def main():
-	start()
-	scan(True)
-	print("Connecting to device ", DEVICE_ADDRESS)
-	device = connect_to_device(DEVICE_ADDRESS)
-	device.register_disconnect_callback(on_disconnection)
-	print("Subscribing")
-	device.subscribe("6e400003-b5a3-f393-e0a9-e50e24dcca9e", callback=on_data)
-	print("Done")
-	device.char_write("6e400002-b5a3-f393-e0a9-e50e24dcca9e", bytearray([48, 49]), wait_for_response=True)
+def subscribe_to_char(device, char, callback):
+	device.subscribe("6e400003-b5a3-f393-e0a9-e50e24dcca9e", callback=callback)
 
-	for uuid in device.discover_characteristics().keys():
-		print("Read UUID", uuid)
+def write_char(device, char, data):
+	device.char_write(char, bytearray(data), wait_for_response=True)
 
-	while True:
-		pass
+def read_char(device, char):
+	return device.char_read(char)
 
-if __name__ == '__main__':
-	exit(main())
-
+def on_disconnection(device, callback):
+	device.register_disconnect_callback(callback)
