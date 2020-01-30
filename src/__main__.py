@@ -24,7 +24,7 @@ def main():
     print("Subscribing")
     ble.subscribe_to_char(device, "6e400003-b5a3-f393-e0a9-e50e24dcca9e", callback=on_data)
 
-    print("Writing into characteristc")
+    print("Writing into characteristic")
     ble.write_char(device, "6e400002-b5a3-f393-e0a9-e50e24dcca9e", [48, 49])
 
     print("Running...")

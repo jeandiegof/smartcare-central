@@ -30,7 +30,7 @@ def discovery_chars(device, print_result=False):
 	return characteristics
 
 def subscribe_to_char(device, char, callback):
-	device.subscribe("6e400003-b5a3-f393-e0a9-e50e24dcca9e", callback=callback)
+	device.subscribe(char, callback=callback)
 
 def write_char(device, char, data):
 	device.char_write(char, bytearray(data), wait_for_response=True)
