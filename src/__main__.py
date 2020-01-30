@@ -1,31 +1,28 @@
 import ble
+import notification_handler
+import mqtt
 
 BAND_ADDRESS = "C4:B2:F1:C9:17:4A"
 
-def on_disconnection(handle):
-	print("Device disconnected")
-
-def on_data(handle, value):
-	print("Data received: ", value)
-
 def main():
+    print("Starting MQTT")
+    mqtt.start()
+
     print("Starting BLE")
     ble.start()
 
-    print("Trying to connect to ", BAND_ADDRESS)
+    print("Trying to connect to", BAND_ADDRESS)
     device = ble.connect(BAND_ADDRESS)
 
-    print("Registering disconection callback")
-    ble.on_disconnection(device, on_disconnection)
+    print("Registering disconection callback...")
+    ble.register_disconnection_callback(device, notification_handler.on_disconnection)
 
-    print("Discovering characteristcs")
-    ble.discovery_chars(device, print_result=True)
-
-    print("Subscribing")
-    ble.subscribe_to_char(device, "6e400003-b5a3-f393-e0a9-e50e24dcca9e", callback=on_data)
-
-    print("Writing into characteristic")
-    ble.write_char(device, "6e400002-b5a3-f393-e0a9-e50e24dcca9e", [48, 49])
+    print("Subscribing to characteristics...")
+    ble.subscribe_to_button_char(device, notification_handler.on_emergency_notification)
+    ble.subscribe_to_bpm_char(device, notification_handler.on_bpm_notification)
+    ble.subscribe_to_arrhythmia_char(device, notification_handler.on_arrhythmia_notication)
+    ble.subscribe_to_fall_detection_char(device, notification_handler.on_fall_detection_notification)
+    ble.subscribe_to_battery_char(device, notification_handler.on_battery_notification)
 
     print("Running...")
     while True:
