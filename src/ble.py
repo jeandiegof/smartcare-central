@@ -46,7 +46,8 @@ def connect(address):
         try:
             device = adapter.connect(address, address_type=ADDRESS_TYPE)
             return device
-        except:
+        except Exception as e:
+            print(e)
             print("Failed to connect to", BAND_ADDRESS)
 
 def discovery_chars(device, print_result=False):
