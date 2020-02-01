@@ -7,6 +7,12 @@ import pygatt
 ADDRESS_TYPE = pygatt.BLEAddressType.random
 adapter = pygatt.GATTToolBackend()
 
+BUTTON_CHARACTERISTIC = "45ce1501-392c-4d5a-b520-54667cb00609"
+BPM_CHARACTERISTIC = "45ce1502-392c-4d5a-b520-54667cb00609"
+ARRHYTHMIA_CHARACTERISTIC = "45ce1503-392c-4d5a-b520-54667cb00609"
+FALL_DETECTION_CHARACTERISTIC = "45ce1504-392c-4d5a-b520-54667cb00609"
+BATTERY_CHARACTERISTIC = "45ce1505-392c-4d5a-b520-54667cb00609"
+
 def start():
 	adapter.start()
 
@@ -38,5 +44,20 @@ def write_char(device, char, data):
 def read_char(device, char):
 	return device.char_read(char)
 
-def on_disconnection(device, callback):
+def register_disconnection_callback(device, callback):
 	device.register_disconnect_callback(callback)
+
+def subscribe_to_button_char(device, callback):
+	device.subscribe(BUTTON_CHARACTERISTIC, callback=callback)
+
+def subscribe_to_bpm_char(device, callback):
+	device.subscribe(BPM_CHARACTERISTIC, callback=callback)
+
+def subscribe_to_arrhythmia_char(device, callback):
+	device.subscribe(ARRHYTHMIA_CHARACTERISTIC, callback=callback)
+
+def subscribe_to_fall_detection_char(device, callback):
+	device.subscribe(FALL_DETECTION_CHARACTERISTIC, callback=callback)
+
+def subscribe_to_battery_char(device, callback):
+	device.subscribe(BATTERY_CHARACTERISTIC, callback=callback)
