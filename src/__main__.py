@@ -2,8 +2,6 @@ import ble
 import notification_handler
 import mqtt
 
-BAND_ADDRESS = "C4:B2:F1:C9:17:4A"
-
 def main():
     print("Starting MQTT")
     mqtt.start()
@@ -11,8 +9,8 @@ def main():
     print("Starting BLE")
     ble.start()
 
-    print("Trying to connect to", BAND_ADDRESS)
-    device = ble.connect(BAND_ADDRESS)
+    print("Trying to connect to", ble.BAND_ADDRESS)
+    device = ble.connect(ble.BAND_ADDRESS)
 
     print("Registering disconection callback...")
     ble.register_disconnection_callback(device, notification_handler.on_disconnection)
