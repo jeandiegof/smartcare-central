@@ -22,7 +22,7 @@ def on_battery_notification(handle, value):
 
 def on_disconnection(value):
     print("On disconnection")
-    mqtt.notify_range("1")
+    mqtt.notify_range(value)
 
 def to_string(value):
     return ''.join(list(map(str, value)))
