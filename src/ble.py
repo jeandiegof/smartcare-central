@@ -48,7 +48,6 @@ def connect(address):
             return device
         except:
             print("Failed to connect to", BAND_ADDRESS)
-            pass
 
 def discovery_chars(device, print_result=False):
     characteristics = device.discover_characteristics()
