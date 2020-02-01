@@ -12,6 +12,9 @@ def main():
     mqtt.start()
 
     print("Starting BLE")
+    ble.start()
+
+    print("Running BLE")
     device = ble.run()
 
     print("Registering disconection callback...")

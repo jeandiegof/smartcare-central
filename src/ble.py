@@ -17,8 +17,6 @@ FALL_DETECTION_CHARACTERISTIC = "45ce1504-392c-4d5a-b520-54667cb00609"
 BATTERY_CHARACTERISTIC = "45ce1505-392c-4d5a-b520-54667cb00609"
 
 def run():
-    start()
-
     print("Trying to connect to", BAND_ADDRESS)
     device = connect(BAND_ADDRESS)
 
