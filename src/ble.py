@@ -19,6 +19,7 @@ BATTERY_CHARACTERISTIC = "45ce1505-392c-4d5a-b520-54667cb00609"
 def run():
     print("Trying to connect to", BAND_ADDRESS)
     device = connect(BAND_ADDRESS)
+    notification_handler.on_connection()
 
     print("Subscribing to characteristics...")
     subscribe_to_button_char(device, notification_handler.on_emergency_notification)

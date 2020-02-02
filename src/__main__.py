@@ -3,7 +3,7 @@ import mqtt
 import notification_handler
 
 def on_disconnection(info):
-    notification_handler.on_disconnection(1)
+    notification_handler.on_disconnection()
     print("Restarting BLE")
     ble.run()
 
