@@ -3,8 +3,8 @@ import paho.mqtt.client as mqtt
 MQTT_HOST = "18.229.184.215"
 
 BASE_TOPIC = "user/"
-BPM_TOPIC = BASE_TOPIC + "bpm/value"
-RANGE_TOPIC = BASE_TOPIC + "range/status"
+BPM_TOPIC = BASE_TOPIC + "hearRate/entry"
+RANGE_TOPIC = BASE_TOPIC + "outOfRange/status"
 BATTERY_TOPIC = BASE_TOPIC + "battery/level"
 EMERGENCY_TOPIC = BASE_TOPIC + "emergency/status"
 FALL_DETECTION_TOPIC = BASE_TOPIC + "fall/status"
