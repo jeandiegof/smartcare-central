@@ -1,0 +1,8 @@
+MQTT_HOST = "18.229.184.215"
+
+BASE_TOPIC = "user/"
+HEART_RATE_TOPIC = BASE_TOPIC + "hearRate/entry"
+OUT_OF_RANGE_TOPIC = BASE_TOPIC + "outOfRange/status"
+EMERGENCY_TOPIC = BASE_TOPIC + "emergency/status"
+FALL_DETECTION_TOPIC = BASE_TOPIC + "fall/status"
+
