@@ -2,6 +2,7 @@ import ble
 import mqtt
 import time
 import notification_handler
+import mqtt
 
 def on_disconnection(info):
     notification_handler.on_disconnection()
@@ -22,9 +23,7 @@ def main():
     ble.register_disconnection_callback(device, on_disconnection)
 
     print("Running...")
-    while True:
-        time.sleep(1)
-        pass
+    mqtt.mqtt.loop_forever()
 
 if __name__ == '__main__':
     exit(main())

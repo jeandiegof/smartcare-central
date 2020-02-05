@@ -10,11 +10,11 @@ EMERGENCY_TOPIC = BASE_TOPIC + "emergency/status"
 FALL_DETECTION_TOPIC = BASE_TOPIC + "fall/status"
 ARRHYTHMIA_TOPIC = BASE_TOPIC + "arrhythmia/status"
 
-_mqtt = mqtt.Client()
+mqtt = mqtt.Client()
 
 def start():
-    _mqtt.on_connect = _on_connect
-    _mqtt.connect(MQTT_HOST, 1883, 60)
+    mqtt.on_connect = _on_connect
+    mqtt.connect(MQTT_HOST, 1883, 60)
 
 def notify_emergency(kind):
     _publish(EMERGENCY_TOPIC, kind)
@@ -38,5 +38,5 @@ def _on_connect():
     print("MQTT connected")
 
 def _publish(topic, data):
-    _mqtt.publish(topic, data, retain=True)
+    mqtt.publish(topic, data, retain=True)
 
