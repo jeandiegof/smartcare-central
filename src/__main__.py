@@ -1,9 +1,10 @@
 import ble
 import mqtt
+import time
 import notification_handler
 
 def on_disconnection(info):
-    notification_handler.on_disconnection(1)
+    notification_handler.on_disconnection()
     print("Restarting BLE")
     ble.run()
 
@@ -22,6 +23,7 @@ def main():
 
     print("Running...")
     while True:
+        time.sleep(1)
         pass
 
 if __name__ == '__main__':
