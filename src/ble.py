@@ -4,11 +4,14 @@ from __future__ import print_function
 import binascii
 import pygatt
 import notification_handler
+import os
 
 ADDRESS_TYPE = pygatt.BLEAddressType.random
 adapter = pygatt.GATTToolBackend()
 
-BAND_ADDRESS = "EB:94:D6:DB:4F:B4"
+#BAND_ADDRESS = "C5:DC:CA:F2:4D:DA"
+BAND_ADDRESS = "EB:94:D6:DB:4F:B4" # accelerometer only
+#BAND_ADDRESS = "DF:09:FC:32:A9:CD" # dev kit
 
 BUTTON_CHARACTERISTIC = "45ce1501-392c-4d5a-b520-54667cb00609"
 BPM_CHARACTERISTIC = "45ce1502-392c-4d5a-b520-54667cb00609"
@@ -33,6 +36,10 @@ def run():
 def start():
     adapter.start()
 
+def stop():
+    adapter.stop()
+    adapter.reset()
+
 def scan(print_result=False):
     devices = adapter.scan()
     if print_result == True:
@@ -43,12 +50,11 @@ def scan(print_result=False):
     return devices
 
 def connect(address):
-    while True:
-        try:
-            device = adapter.connect(address, address_type=ADDRESS_TYPE)
-            return device
-        except:
-            print("Failed to connect to", BAND_ADDRESS)
+    try:
+        device = adapter.connect(address, address_type=ADDRESS_TYPE)
+        return device
+    except:
+        os.abort()
 
 def discovery_chars(device, print_result=False):
     characteristics = device.discover_characteristics()

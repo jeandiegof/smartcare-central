@@ -1,5 +1,6 @@
 import ble
 import mqtt
+import time
 import notification_handler
 
 def on_disconnection(info):
@@ -22,6 +23,7 @@ def main():
 
     print("Running...")
     while True:
+        time.sleep(1)
         pass
 
 if __name__ == '__main__':
